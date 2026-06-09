@@ -61,12 +61,13 @@ int allClientsVisitedExactlyOnce(const Problem *problem, const Solution *solutio
     return 1;
 }
 
+
+ 
 /*
  * Fonksiyon amacı:
  * Her aracın maxClientsPerVehicle sınırını aşıp aşmadığını kontrol eder.
- 
- * This function checks whether each route respects the maximum clients per vehicle.
- */
+ * Depot sayılmaz; sadece müşteri sayısı dikkate alınır.
+ */ 
 int routesRespectMaxClientsPerVehicle(const Problem *problem, const Solution *solution) {
     for (int vehicle = 0; vehicle < problem->vehicleCount; vehicle++) {
         int clientCounter = 0;

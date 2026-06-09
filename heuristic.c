@@ -20,9 +20,6 @@ static void initializeSolution(Solution *solution, const char *algorithmName) {
 /*
  * Fonksiyon amacı:
  * Solution kopyalamak için kullanılır.
- *
- * English explanation:
- * This helper copies one solution into another solution object.
  */
 static void copySolution(Solution *destination, const Solution *source) {
     memcpy(destination, source, sizeof(Solution));
@@ -32,8 +29,6 @@ static void copySolution(Solution *destination, const Solution *source) {
  * Fonksiyon amacı:
  * Her aracın rotasını depot ile başlatır.
  *
- * English explanation:
- * This helper starts each route with the depot.
  */
 static void startAllRoutesAtDepot(const Problem *problem, Solution *solution) {
     for (int vehicle = 0; vehicle < problem->vehicleCount; vehicle++) {
@@ -46,8 +41,6 @@ static void startAllRoutesAtDepot(const Problem *problem, Solution *solution) {
  * Fonksiyon amacı:
  * Her aracın rotasını depot ile kapatır.
  *
- * English explanation:
- * This helper closes each route by adding the depot at the end.
  */
 static void closeAllRoutesWithDepot(const Problem *problem, Solution *solution) {
     for (int vehicle = 0; vehicle < problem->vehicleCount; vehicle++) {
@@ -61,8 +54,6 @@ static void closeAllRoutesWithDepot(const Problem *problem, Solution *solution) 
  * Fonksiyon amacı:
  * Solution mesafesini hesaplar ve validation çalıştırır.
  *
- * English explanation:
- * This helper calculates total distance and validates the solution.
  */
 static void finalizeSolution(const Problem *problem, Solution *solution) {
     solution->totalDistance = calculateTotalDistance(problem, solution);
@@ -73,9 +64,7 @@ static void finalizeSolution(const Problem *problem, Solution *solution) {
  * Fonksiyon amacı:
  * Basit sequential baseline çözüm üretir. Müşteriler sırayla araçlara dağıtılır.
  * Bu optimal değildir; sadece karşılaştırma için basit referans noktasıdır.
- *
- * English explanation:
- * This function creates a simple sequential baseline solution.
+
  */
 void createSequentialBaseline(const Problem *problem, Solution *solution) {
     clock_t start = clock();
@@ -105,8 +94,6 @@ void createSequentialBaseline(const Problem *problem, Solution *solution) {
  * Fonksiyon amacı:
  * Mevcut noktaya en yakın ziyaret edilmemiş müşteriyi bulur.
  *
- * English explanation:
- * This helper finds the nearest unvisited client from the current vertex.
  */
 static int findNearestUnvisitedClient(const Problem *problem, int currentVertex, const int visited[]) {
     int nearestClient = -1;
@@ -132,8 +119,6 @@ static int findNearestUnvisitedClient(const Problem *problem, int currentVertex,
  * Randomized nearest neighbor için en yakın birkaç aday arasından rastgele seçim yapar.
  * Bu ILS içinde farklı başlangıç çözümleri üretmek için kullanılır.
  *
- * English explanation:
- * This helper randomly selects one client among a small candidate list of nearest unvisited clients.
  */
 static int findRandomNearUnvisitedClient(const Problem *problem, int currentVertex, const int visited[], int candidateLimit) {
     int candidates[20];
@@ -184,9 +169,6 @@ static int findRandomNearUnvisitedClient(const Problem *problem, int currentVert
  * Fonksiyon amacı:
  * Bir rotaya first-improvement 2-opt uygular.
  * İki kenar değiştirilince rota kısalıyorsa değişiklik kabul edilir.
- *
- * English explanation:
- * This function applies first-improvement 2-opt local search to one route.
  */
 static void applyTwoOptToRoute(const Problem *problem, int route[], int routeSize) {
     int improved = 1;
@@ -238,11 +220,7 @@ static void applyTwoOptToAllRoutes(const Problem *problem, Solution *solution) {
 
 /*
  * Fonksiyon amacı:
- * Deterministic nearest neighbor çözümü üretir.
- *
- * English explanation:
- * This helper creates a deterministic nearest neighbor solution.
- */
+ * Deterministic nearest neighbor çözümü üretir. */
 static void createNearestNeighborRaw(const Problem *problem, Solution *solution) {
     startAllRoutesAtDepot(problem, solution);
 
@@ -278,8 +256,6 @@ static void createNearestNeighborRaw(const Problem *problem, Solution *solution)
  * Fonksiyon amacı:
  * Nearest Neighbor + 2-opt heuristic üretir.
  *
- * English explanation:
- * This function creates a Nearest Neighbor solution and improves it using 2-opt.
  */
 void createNearestNeighborTwoOptSolution(const Problem *problem, Solution *solution) {
     clock_t start = clock();
@@ -298,8 +274,6 @@ void createNearestNeighborTwoOptSolution(const Problem *problem, Solution *solut
  * İki farklı route arasında müşteri swap işleminin mesafe değişimini hesaplar.
  * Bu sadece farklı araç rotaları için kullanılır.
  *
- * English explanation:
- * This helper calculates the distance delta of swapping two clients in different routes.
  */
 static double calculateInterRouteSwapDelta(const Problem *problem, const Solution *solution, int vehicleA, int posA, int vehicleB, int posB) {
     int clientA = solution->routes[vehicleA][posA];
@@ -325,10 +299,7 @@ static double calculateInterRouteSwapDelta(const Problem *problem, const Solutio
  * Fonksiyon amacı:
  * Çok araçlı çözümlerde farklı araç rotaları arasında müşteri swap local search uygular.
  * Bu işlem, ILS'in sadece route içini değil araçlar arası müşteri dağılımını da iyileştirmesini sağlar.
- *
- * English explanation:
- * This function applies inter-route swap local search for multi-vehicle solutions.
- */
+  */
 static void applyInterRouteSwapLocalSearch(const Problem *problem, Solution *solution) {
     if (problem->vehicleCount < 2) {
         return;
@@ -370,8 +341,6 @@ static void applyInterRouteSwapLocalSearch(const Problem *problem, Solution *sol
  * Fonksiyon amacı:
  * ILS için yarı-rastgele bir başlangıç çözümü üretir.
  *
- * English explanation:
- * This helper creates a semi-random construction solution for ILS.
  */
 static void createSemiRandomSolution(const Problem *problem, Solution *solution, int candidateLimit) {
     startAllRoutesAtDepot(problem, solution);
@@ -410,10 +379,7 @@ static void createSemiRandomSolution(const Problem *problem, Solution *solution,
  * ILS içinde mevcut iyi çözümü bozmadan küçük rastgele değişiklikler yapar.
  * Tek araçta rota içinde bir parçayı ters çevirir.
  * Birden fazla araçta ise farklı araçlar arasında müşteri değişimi yapar.
- *
- * English explanation:
- * This helper perturbs an existing solution for Iterated Local Search.
- */
+  */
 static void perturbSolution(const Problem *problem, Solution *solution, int strength) {
     if (strength < 1) {
         strength = 1;
@@ -477,8 +443,6 @@ static void perturbSolution(const Problem *problem, Solution *solution, int stre
  * Iterated Local Search + 2-opt çalıştırır.
  * Süre dolana kadar çözüm üretir, 2-opt ile iyileştirir ve en iyisini saklar.
  *
- * English explanation:
- * This function runs a time-limited Iterated Local Search with 2-opt improvement.
  */
 void createILSTwoOptSolution(const Problem *problem, Solution *solution, double timeLimitSeconds) {
     clock_t start = clock();
@@ -538,8 +502,6 @@ void createILSTwoOptSolution(const Problem *problem, Solution *solution, double 
  * optimal_solutions.pdf dosyasında verilen bilinen referans değerleri döndürür.
  * Bu değerler algoritma içinde kullanılmaz; sadece gap raporlamak için kullanılır.
  *
- * English explanation:
- * These known reference values are used only for reporting the gap, not for constructing solutions.
  */
 double getKnownReferenceLength(const Problem *problem) {
     if (problem->clientCount == 400 && problem->vehicleCount == 1 && problem->maxClientsPerVehicle == 400) {
@@ -557,8 +519,6 @@ double getKnownReferenceLength(const Problem *problem) {
  * Fonksiyon amacı:
  * Bir çözümün rotalarını yazdırır.
  *
- * English explanation:
- * This function prints all routes of a solution.
  */
 void printSolutionRoutes(const Problem *problem, const Solution *solution) {
     printf("\nBest solution routes (%s):\n", solution->algorithmName);
