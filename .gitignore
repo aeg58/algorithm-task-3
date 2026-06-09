@@ -1,0 +1,11 @@
+# compiled files
+task3
+a.out
+*.exe
+*.o
+
+# editor/system files
+.vscode/
+.idea/
+.DS_Store
+

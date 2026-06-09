@@ -1,0 +1,33 @@
+Task 3 - Vehicle Routing Problem / Heuristic Assignment
+Clients: 9
+Vehicles: 1
+Max clients per vehicle: 9
+Depot coordinate: 0.00 0.00
+
+================ COMPARISON TABLE ================
+Algorithm                      Valid    Distance        Time(s)         Dist.OK     
+Naive Sequential Baseline      YES      47.207865       0.000000        OK          
+Nearest Neighbor + 2-opt       YES      29.865771       0.000000        OK          
+ILS + 2-opt                    YES      29.865771       2.000000        OK          
+Exact Backtracking             YES      29.865771       0.000000        OK          
+Known reference length: not available for this input.
+==================================================
+
+Exact Backtracking Result:
+Status: AVAILABLE
+Message: Exact backtracking completed for small instance.
+Execution time: 0.000000 seconds
+Exact distance: 29.865771
+Exact route: 0 7 6 2 3 5 4 8 1 9 0
+
+Best valid heuristic: Nearest Neighbor + 2-opt
+Best heuristic distance: 29.865771
+Depot start/end: VALID
+Client visits exactly once: VALID
+Vehicle capacity respected: VALID
+Stored distance: 29.865771
+Recalculated distance: 29.865771
+Distance check: OK
+
+Best solution routes (Nearest Neighbor + 2-opt):
+Route 1: 0 7 6 2 3 5 4 8 1 9 0

@@ -1,0 +1,41 @@
+TASK 3 NOTES - VRP / HEURISTIC ASSIGNMENT - V3
+
+Main idea:
+The problem is a Vehicle Routing Problem (VRP). Vehicles start from the depot, visit clients, and return to the depot.
+
+Most important correctness rules:
+1. Every route must start at the depot.
+2. Every route must end at the depot.
+3. Every client must be visited exactly once.
+4. No client may be skipped.
+5. No client may be visited twice.
+6. Each vehicle must respect maxClientsPerVehicle.
+7. Distance must be recalculated independently.
+
+Output modes:
+- Plain checker mode: ./task3 --plain < input/in.txt
+  This mode should be used if the lecturer wants a simple checker-friendly output.
+  It prints only distance and route lines.
+
+- Detailed report mode: ./task3 < input/in.txt
+  This mode is for presentation and analysis. It prints validation details, comparison table,
+  known reference gap, execution time, and best solution routes.
+
+Algorithms:
+1. Naive Sequential Baseline:
+   Simple reference route. It is not intended to be high quality.
+
+2. Nearest Neighbor + 2-opt:
+   A construction heuristic followed by local search.
+
+3. ILS + 2-opt:
+   A time-limited heuristic. It repeatedly generates or perturbs solutions, applies 2-opt,
+   performs inter-route swaps for multi-vehicle cases, and keeps the best solution found.
+
+4. Exact Backtracking:
+   Used only for small one-vehicle inputs. It is skipped for large inputs because exact search is factorial.
+
+Code defense sentence:
+My solution first validates correctness independently, then compares solution quality. I check depot start/end,
+every client exactly once, vehicle capacity, and recalculated distance. For large instances, exact search is skipped
+because it is computationally infeasible, so heuristics are used to produce good solutions quickly.

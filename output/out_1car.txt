@@ -1,0 +1,32 @@
+Task 3 - Vehicle Routing Problem / Heuristic Assignment
+Clients: 400
+Vehicles: 1
+Max clients per vehicle: 400
+Depot coordinate: 500.00 500.00
+
+================ COMPARISON TABLE ================
+Algorithm                      Valid    Distance        Time(s)         Dist.OK      Gap(%)      
+Naive Sequential Baseline      YES      215696.899966   0.000000        OK           1309.78     
+Nearest Neighbor + 2-opt       YES      16185.189797    0.040000        OK           5.79        
+ILS + 2-opt                    YES      16062.482097    2.200000        OK           4.98        
+Exact Backtracking             SKIPPED  -               0.000000        -            -           
+Known reference length: 15300.00
+Note: known reference values are used only for reporting gap, not for constructing routes.
+==================================================
+
+Exact Backtracking Result:
+Status: SKIPPED
+Message: SKIPPED: instance too large for exact factorial search (clientCount > 11).
+Execution time: 0.000000 seconds
+
+Best valid heuristic: ILS + 2-opt
+Best heuristic distance: 16062.482097
+Depot start/end: VALID
+Client visits exactly once: VALID
+Vehicle capacity respected: VALID
+Stored distance: 16062.482097
+Recalculated distance: 16062.482097
+Distance check: OK
+
+Best solution routes (ILS + 2-opt):
+Route 1: 0 290 147 371 166 368 274 20 57 179 103 354 360 299 385 139 2 122 209 265 382 73 212 281 5 255 135 266 353 52 14 141 260 280 226 228 80 377 337 250 269 28 378 37 75 326 106 82 270 386 111 104 99 143 334 310 303 194 61 324 177 144 208 277 322 351 374 292 78 198 325 302 372 283 183 86 46 138 150 294 171 33 105 355 248 370 291 220 231 318 170 218 27 126 131 376 43 12 321 63 297 176 221 223 388 262 31 242 125 10 189 146 373 393 16 361 207 3 93 330 387 195 314 116 390 272 332 132 11 100 363 245 224 59 32 23 191 124 48 253 47 123 206 35 271 72 154 184 36 279 323 119 379 346 230 213 342 49 58 136 6 151 288 98 240 24 306 89 395 234 357 211 284 77 199 54 400 289 348 278 87 312 187 356 389 243 340 381 174 200 331 25 163 29 197 369 95 53 398 84 65 366 190 308 159 85 359 156 192 204 210 319 180 296 152 83 50 394 365 18 305 233 182 217 188 267 172 134 364 70 81 241 94 235 333 140 74 219 97 399 338 193 149 91 335 8 128 44 181 145 175 229 259 313 349 79 375 121 90 232 383 102 162 225 261 315 287 392 114 343 41 71 153 127 185 252 88 244 51 165 238 309 263 236 155 205 67 268 317 17 186 117 282 202 285 214 178 347 258 237 286 34 161 45 256 295 39 216 336 129 120 247 26 328 167 164 173 13 19 384 298 42 391 301 15 21 30 118 196 107 160 64 7 341 316 69 76 320 68 396 101 350 113 142 62 329 362 254 345 60 148 110 293 327 344 158 307 130 311 251 276 397 300 137 115 222 304 56 273 275 339 157 92 108 96 227 215 66 257 22 367 358 203 9 201 1 4 169 133 249 38 239 55 168 380 264 109 40 246 112 352 0
