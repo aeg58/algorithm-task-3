@@ -12,19 +12,19 @@ int routesStartAndEndAtDepot(const Problem *problem, const Solution *solution) {
     for (int vehicle = 0; vehicle < problem->vehicleCount; vehicle++) {
         int routeSize = solution->routeSizes[vehicle];
 
-        if (routeSize < 2) {
+        if (routeSize < 2) {// çünkü en az bir müşteri ve bir depot olmalı
             return 0;
         }
 
-        if (solution->routes[vehicle][0] != DEPOT) {
+        if (solution->routes[vehicle][0] != DEPOT) { //depotun 0 indexinde olması gerekir
             return 0;
         }
 
-        if (solution->routes[vehicle][routeSize - 1] != DEPOT) {
+        if (solution->routes[vehicle][routeSize - 1] != DEPOT) { //son indexinde de depot olması gerekir 
             return 0;
-        }
+        }//routesize-1 son indexi verir çünkü 0 dan başlar
     }
-
+// O(m = vehicleCCount)
     return 1;
 }
 
@@ -34,17 +34,19 @@ int routesStartAndEndAtDepot(const Problem *problem, const Solution *solution) {
  */
 
 int allClientsVisitedExactlyOnce(const Problem *problem, const Solution *solution) {
-    int visitCount[MAX_CLIENTS + 1] = {0};
+    int visitCount[MAX_CLIENTS + 1] = {0};// 0 indexi depot için, 1..clientCount arası müşteriler için kullanılır
+    
 
-    for (int vehicle = 0; vehicle < problem->vehicleCount; vehicle++) {
-        for (int position = 0; position < solution->routeSizes[vehicle]; position++) {
-            int vertex = solution->routes[vehicle][position];
+    for (int vehicle = 0; vehicle < problem->vehicleCount; vehicle++) { //tüm routlerı gezeriz
+        for (int position = 0; position < solution->routeSizes[vehicle]; position++) {//tüm rotanın tüm noktalarnı gezeriz burdaki değer o aracın rotasındaki nokta sayısıdır
+            int vertex = solution->routes[vehicle][position];  //o anki ziyaret edilen nokta (depot veya müşteri)
 
             if (vertex == DEPOT) {
-                continue;
+                continue;//// Depot müşteri değildir ve her route'ta tekrar edebilir.
+// Bu yüzden depot'u visitCount dizisine dahil etmiyoruz.
             }
 
-            if (vertex < 1 || vertex > problem->clientCount) {
+            if (vertex < 1 || vertex > problem->clientCount) {// Geçersiz müşteri numarası
                 return 0;
             }
 
@@ -52,9 +54,9 @@ int allClientsVisitedExactlyOnce(const Problem *problem, const Solution *solutio
         }
     }
 
-    for (int client = 1; client <= problem->clientCount; client++) {
+    for (int client = 1; client <= problem->clientCount; client++) {// Her müşterinin tam olarak bir kez ziyaret edilip edilmediğini kontrol ederiz 
         if (visitCount[client] != 1) {
-            return 0;
+            return 0; // Eğer herhangi bir müşteri 0 kez veya 1'den fazla kez ziyaret edilmişse, çözüm geçersizdir.
         }
     }
 

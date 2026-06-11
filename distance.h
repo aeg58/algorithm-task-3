@@ -2,6 +2,7 @@
 #define DISTANCE_H
 
 #include "common.h"
+//distance.h, mesafe ile ilgili fonksiyonları bildirir; böylece input, validation, heuristic ve main modülleri bu fonksiyonları kullanabilir.
 
 double calculateEuclideanDistance(double x1, double y1, double x2, double y2);
 void buildDistanceMatrix(Problem *problem);

@@ -1,6 +1,7 @@
 #include <math.h>
 #include "distance.h"
 
+
 /*
  * Fonksiyon amacı:
  * İki koordinat arasındaki Öklid mesafesini hesaplar.
@@ -19,9 +20,9 @@ double calculateEuclideanDistance(double x1, double y1, double x2, double y2) {
  *
 
  */
-void buildDistanceMatrix(Problem *problem) {
-    int totalPoints = problem->clientCount + 1;
-
+void buildDistanceMatrix(Problem *problem) {//Öklid mesafelerini tekrar tekrar hesaplamamak için distance matrix oluşturuyorum. Ön hesaplamadan sonra her mesafe erişimi O(1) olur.
+    int totalPoints = problem->clientCount + 1; // 1 fazla depot için
+//
     for (int i = 0; i < totalPoints; i++) {
         for (int j = 0; j < totalPoints; j++) {
             problem->distanceMatrix[i][j] = calculateEuclideanDistance(
@@ -30,7 +31,7 @@ void buildDistanceMatrix(Problem *problem) {
             );
         }
     }
-}
+}//time comp 0(n^2)
 
 /*
  * Fonksiyon amacı:
@@ -41,14 +42,14 @@ void buildDistanceMatrix(Problem *problem) {
 double calculateRouteDistance(const Problem *problem, const int route[], int routeSize) {
     double routeDistance = 0.0;
 
-    for (int position = 0; position < routeSize - 1; position++) {
+    for (int position = 0; position < routeSize - 1; position++) { //routeSize-1 çünkü son noktadan sonra başka bir nokta yok, yani routeSize-1 tane kenar var.
         int from = route[position];
         int to = route[position + 1];
         routeDistance += problem->distanceMatrix[from][to];
     }
 
     return routeDistance;
-}
+}//Bu fonksiyon rota içindeki ardışık noktaları gezer ve distance matrix kullanarak her ardışık nokta çiftinin mesafesini toplar.
 
 /*
  * Fonksiyon amacı:
@@ -64,4 +65,10 @@ double calculateTotalDistance(const Problem *problem, const Solution *solution) 
     }
 
     return totalDistance;
-}
+}//Bu fonksiyon validation sırasında çözümün toplam mesafesini bağımsız olarak yeniden hesaplamak için de kullanılır.
+//Time complexity: O(n + m)
+
+//The input gives coordinates for clients and the depot, so I calculate straight-line Euclidean distances between these coordinate points.
+ 
+
+//Kaydedilen mesafenin gerçek rota ile uyuştuğunu doğrulamak için. Böylece heuristic’e körü körüne güvenmemiş oluyoruz.
